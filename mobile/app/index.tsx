@@ -193,9 +193,9 @@ export default function HomeScreen() {
     };
 
     const getBgColor = () => {
-        if (riskState === 'DANGER') return '#ef4444'; // intense red-500
-        if (riskState === 'WARNING') return '#fef08a'; // yellow-200
-        return '#fafafa'; // standard zinc-50
+        if (riskState === 'DANGER') return '#ef4444'; // bright red-500
+        if (riskState === 'WARNING') return '#eab308'; // bright yellow-500
+        return '#09090b'; // zinc-950 for normal dark background
     };
 
     return (
@@ -266,7 +266,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#ffffff', // zinc-50
+        backgroundColor: '#09090b', // zinc-950
         padding: 24,
     },
     header: {
@@ -279,18 +279,18 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 24,
         fontWeight: '700',
-        color: '#09090b', // zinc-950
+        color: '#fafafa', // zinc-50
         letterSpacing: -0.5,
     },
     statusBadge: {
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#f4f4f5', // zinc-100
+        backgroundColor: '#18181b', // zinc-900
         paddingHorizontal: 12,
         paddingVertical: 6,
         borderRadius: 16,
         borderWidth: 1,
-        borderColor: '#e4e4e7', // zinc-200
+        borderColor: '#27272a', // zinc-800
     },
     statusDot: {
         width: 6,
@@ -307,7 +307,7 @@ const styles = StyleSheet.create({
     statusText: {
         fontSize: 12,
         fontWeight: '500',
-        color: '#71717a',
+        color: '#a1a1aa', // zinc-400
     },
     content: {
         flex: 1,
@@ -316,7 +316,7 @@ const styles = StyleSheet.create({
     },
     description: {
         fontSize: 16,
-        color: '#71717a',
+        color: '#a1a1aa', // zinc-400
         lineHeight: 24,
         marginBottom: 32,
         textAlign: 'center',
@@ -327,22 +327,24 @@ const styles = StyleSheet.create({
     inputLabel: {
         fontSize: 14,
         fontWeight: '600',
-        color: '#3f3f46', // zinc-700
+        color: '#e4e4e7', // zinc-200
     },
     input: {
         borderWidth: 1,
-        borderColor: '#e4e4e7', // zinc-200
+        borderColor: '#27272a', // zinc-800
         borderRadius: 8,
         paddingHorizontal: 16,
         paddingVertical: 12,
         fontSize: 16,
-        color: '#09090b',
-        backgroundColor: '#fafafa',
+        color: '#fafafa', // zinc-50
+        backgroundColor: '#09090b', // zinc-950
     },
     primaryButton: {
-        backgroundColor: '#18181b', // zinc-900
+        backgroundColor: '#fafafa', // zinc-50
         paddingVertical: 16,
-        borderRadius: 8,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#e4e4e7', // zinc-200
         alignItems: 'center',
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -350,18 +352,20 @@ const styles = StyleSheet.create({
         shadowRadius: 4,
     },
     primaryButtonText: {
-        color: '#fafafa', // zinc-50
+        color: '#09090b', // zinc-950
         fontSize: 16,
         fontWeight: '600',
     },
     destructiveButton: {
-        backgroundColor: '#ef4444', // red-500
+        backgroundColor: '#7f1d1d', // red-900
         paddingVertical: 16,
-        borderRadius: 8,
+        borderRadius: 6,
+        borderWidth: 1,
+        borderColor: '#ef4444', // red-500
         alignItems: 'center',
         shadowColor: '#ef4444',
         shadowOffset: { width: 0, height: 4 },
-        shadowOpacity: 0.2,
+        shadowOpacity: 0.3,
         shadowRadius: 8,
     },
     destructiveButtonText: {
@@ -371,33 +375,33 @@ const styles = StyleSheet.create({
     },
     modalOverlay: {
         flex: 1,
-        backgroundColor: 'rgba(9, 9, 11, 0.4)', // zinc-950 40%
+        backgroundColor: 'rgba(9, 9, 11, 0.8)', // zinc-950 80%
         justifyContent: 'center',
         padding: 24,
     },
     modalCard: {
-        backgroundColor: '#ffffff',
+        backgroundColor: '#09090b', // zinc-950
         borderRadius: 12,
         padding: 24,
         borderWidth: 1,
-        borderColor: '#e4e4e7',
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.1,
-        shadowRadius: 24,
+        borderColor: '#27272a', // zinc-800
+        shadowColor: '#fafafa', // inner glow attempt via shadow
+        shadowOffset: { width: 0, height: 0 },
+        shadowOpacity: 0.05,
+        shadowRadius: 10,
         elevation: 4,
     },
     modalTitle: {
         fontSize: 20,
         fontWeight: '700',
-        color: '#09090b',
+        color: '#fafafa', // zinc-50
         marginBottom: 8,
         textAlign: 'center',
         letterSpacing: -0.5,
     },
     modalDescription: {
         fontSize: 15,
-        color: '#71717a',
+        color: '#a1a1aa', // zinc-400
         textAlign: 'center',
         marginBottom: 32,
         lineHeight: 22,

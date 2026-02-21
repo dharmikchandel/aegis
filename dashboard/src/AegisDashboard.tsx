@@ -130,14 +130,14 @@ export default function AegisDashboard() {
         try {
             mapRef.current = new mapboxgl.Map({
                 container: mapContainerRef.current,
-                style: 'mapbox://styles/mapbox/light-v11',
+                style: 'mapbox://styles/mapbox/dark-v11',
                 center: [-122.4194, 37.7749],
                 zoom: 15,
             });
 
             // Add a single DOM element for the marker to style dynamically
             const el = document.createElement('div');
-            el.className = 'w-4 h-4 rounded-full border-2 border-white shadow-md bg-zinc-900';
+            el.className = 'w-4 h-4 rounded-full border-2 border-zinc-950 shadow-md bg-zinc-100';
 
             markerRef.current = new mapboxgl.Marker(el)
                 .setLngLat([-122.4194, 37.7749])
@@ -170,13 +170,13 @@ export default function AegisDashboard() {
         const el = markerRef.current.getElement();
 
         if (risk?.state === 'DANGER' || risk?.state === 'ESCALATION') {
-            el.className = 'w-4 h-4 rounded-full border-2 border-white shadow-md bg-red-500 animate-pulse';
-            el.style.boxShadow = '0 0 0 8px rgba(239, 68, 68, 0.3)'; // Ping effect approximation
+            el.className = 'w-4 h-4 rounded-full border-2 border-zinc-950 shadow-md bg-red-500 animate-pulse';
+            el.style.boxShadow = '0 0 0 8px rgba(239, 68, 68, 0.4)'; // Ping effect approximation
         } else if (risk?.state === 'WARNING') {
-            el.className = 'w-4 h-4 rounded-full border-2 border-white shadow-md bg-amber-500';
-            el.style.boxShadow = '0 0 0 6px rgba(245, 158, 11, 0.3)';
+            el.className = 'w-4 h-4 rounded-full border-2 border-zinc-950 shadow-md bg-amber-500';
+            el.style.boxShadow = '0 0 0 6px rgba(245, 158, 11, 0.4)';
         } else {
-            el.className = 'w-4 h-4 rounded-full border-2 border-white shadow-md bg-zinc-900';
+            el.className = 'w-4 h-4 rounded-full border-2 border-zinc-950 shadow-md bg-zinc-100';
             el.style.boxShadow = 'none';
         }
 
@@ -189,32 +189,32 @@ export default function AegisDashboard() {
 
     const getStateColor = (state?: string) => {
         switch (state) {
-            case 'NORMAL': return 'text-zinc-500 bg-zinc-100 border-zinc-200';
-            case 'WARNING': return 'text-amber-600 bg-amber-50 border-amber-200';
+            case 'NORMAL': return 'text-zinc-400 bg-zinc-900/50 border-zinc-800';
+            case 'WARNING': return 'text-amber-500 bg-amber-950/30 border-amber-900/50';
             case 'ESCALATION':
-            case 'DANGER': return 'text-red-100 bg-red-600 border-red-700 animate-pulse shadow-md shadow-red-500/50';
-            default: return 'text-zinc-400 bg-zinc-50 border-zinc-200';
+            case 'DANGER': return 'text-red-50 bg-red-950/80 border-red-900 animate-pulse shadow-md shadow-red-900/50';
+            default: return 'text-zinc-500 bg-zinc-900/50 border-zinc-800';
         }
     };
 
     const getGlobalBgClass = () => {
-        if (!risk) return 'bg-zinc-50';
-        if (risk.state === 'DANGER') return 'bg-red-600 animate-pulse'; // Extremely Bright Red
-        if (risk.state === 'ESCALATION') return 'bg-red-500/20 animate-pulse';
-        if (risk.state === 'WARNING') return 'bg-yellow-400/40 animate-pulse'; // Bright Yellow
-        return 'bg-zinc-50';
+        if (!risk) return 'bg-zinc-950';
+        if (risk.state === 'DANGER') return 'bg-red-600 animate-pulse';
+        if (risk.state === 'ESCALATION') return 'bg-red-500/50 animate-pulse';
+        if (risk.state === 'WARNING') return 'bg-yellow-500/50 animate-pulse';
+        return 'bg-zinc-950';
     };
 
     return (
-        <div className={`min-h-screen font-sans text-zinc-950 flex flex-col transition-colors duration-500 ${getGlobalBgClass()}`}>
+        <div className={`min-h-screen font-sans text-zinc-50 flex flex-col transition-colors duration-500 ${getGlobalBgClass()}`}>
             {/* Header */}
-            <header className="bg-white border-b border-zinc-200 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
+            <header className="bg-zinc-950 border-b border-zinc-800 px-6 py-4 flex items-center justify-between sticky top-0 z-10 shadow-sm">
                 <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-6 h-6 text-zinc-900" />
+                    <ShieldCheck className="w-6 h-6 text-zinc-50" />
                     <h1 className="text-xl font-bold tracking-tight">Aegis Dashboard</h1>
                 </div>
                 <div className="flex items-center gap-4 text-sm font-medium">
-                    <span className="flex items-center gap-1.5 text-zinc-600 px-3 py-1 bg-zinc-100 rounded-md">
+                    <span className="flex items-center gap-1.5 text-zinc-400 px-3 py-1 bg-zinc-900 border border-zinc-800 rounded-md">
                         <Activity className="w-4 h-4" /> Live Streaming
                     </span>
                 </div>
@@ -224,10 +224,10 @@ export default function AegisDashboard() {
             <main className="flex-1 p-6 grid grid-cols-1 lg:grid-cols-3 gap-6">
 
                 {/* Left Col: Map */}
-                <section className="col-span-1 lg:col-span-2 flex flex-col bg-white rounded-xl border border-zinc-200 overflow-hidden shadow-sm h-[600px] lg:h-auto relative">
-                    <div className="p-4 border-b border-zinc-200 bg-zinc-50 flex justify-between items-center">
-                        <h2 className="text-sm font-semibold text-zinc-800 flex items-center gap-2">
-                            <MapPin className="w-4 h-4 text-zinc-500" /> Live Tracking
+                <section className="col-span-1 lg:col-span-2 flex flex-col bg-zinc-950 rounded-xl border border-zinc-800 overflow-hidden shadow-sm h-[600px] lg:h-auto relative">
+                    <div className="p-4 border-b border-zinc-800 bg-zinc-900/50 flex justify-between items-center">
+                        <h2 className="text-sm font-semibold text-zinc-100 flex items-center gap-2">
+                            <MapPin className="w-4 h-4 text-zinc-400" /> Live Tracking
                         </h2>
                         {telemetry && (
                             <div className="text-xs text-zinc-500 font-mono">
@@ -235,7 +235,7 @@ export default function AegisDashboard() {
                             </div>
                         )}
                     </div>
-                    <div className="flex-1 relative w-full h-full bg-zinc-100 overflow-hidden">
+                    <div className="flex-1 relative w-full h-full bg-zinc-900 overflow-hidden">
                         {/* Map Container - fills the space designated for it */}
                         <div ref={mapContainerRef} className="absolute inset-0 w-full h-full" />
                     </div>
@@ -245,12 +245,12 @@ export default function AegisDashboard() {
                 <section className="flex flex-col gap-6">
 
                     {/* Risk Card */}
-                    <div className="bg-white rounded-xl border border-zinc-200 shadow-sm p-6">
-                        <h2 className="text-sm font-semibold text-zinc-500 uppercase tracking-wider mb-4">Risk Evaluation</h2>
+                    <div className="bg-zinc-950 rounded-xl border border-zinc-800 shadow-sm p-6">
+                        <h2 className="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-4">Risk Evaluation</h2>
 
                         <div className="flex items-end justify-between mb-6">
                             <div>
-                                <p className="text-5xl font-bold tracking-tighter text-zinc-900">
+                                <p className="text-5xl font-bold tracking-tighter text-zinc-50">
                                     {risk ? risk.riskScore.toFixed(0) : '0'}
                                 </p>
                                 <p className="text-sm text-zinc-500 mt-1">/ 100 Risk Score</p>
@@ -260,55 +260,55 @@ export default function AegisDashboard() {
                                     {risk?.state || 'Awaiting Data'}
                                 </div>
                                 {risk?.state === 'WARNING' && (
-                                    <div className="text-xs font-bold text-amber-600 bg-amber-100 px-2 py-1 rounded animate-pulse">
+                                    <div className="text-xs font-bold text-amber-500 bg-amber-950/50 px-2 py-1 rounded border border-amber-900/50 animate-pulse">
                                         Escalating in: {timeRemaining}s
                                     </div>
                                 )}
                             </div>
                         </div>
 
-                        <div className="grid grid-cols-2 gap-4 border-t border-zinc-100 pt-4">
+                        <div className="grid grid-cols-2 gap-4 border-t border-zinc-800 pt-4">
                             <div>
-                                <p className="text-xs text-zinc-500 mb-1 flex items-center gap-1"><Activity className="w-3 h-3" /> Base Points</p>
-                                <p className="text-lg font-semibold text-zinc-900">{risk ? risk.basePoints : '0'}</p>
+                                <p className="text-xs text-zinc-400 mb-1 flex items-center gap-1"><Activity className="w-3 h-3" /> Base Points</p>
+                                <p className="text-lg font-semibold text-zinc-100">{risk ? risk.basePoints : '0'}</p>
                             </div>
                             <div>
-                                <p className="text-xs text-zinc-500 mb-1 flex items-center gap-1"><Clock className="w-3 h-3" /> Time Multiplier</p>
-                                <p className="text-lg font-semibold text-zinc-900">{risk ? `${risk.timeMultiplier.toFixed(1)}x` : '-'}</p>
+                                <p className="text-xs text-zinc-400 mb-1 flex items-center gap-1"><Clock className="w-3 h-3" /> Time Multiplier</p>
+                                <p className="text-lg font-semibold text-zinc-100">{risk ? `${risk.timeMultiplier.toFixed(1)}x` : '-'}</p>
                             </div>
                         </div>
                         {telemetry && (
-                            <div className="grid grid-cols-2 gap-4 border-t border-zinc-100 pt-4 mt-4">
+                            <div className="grid grid-cols-2 gap-4 border-t border-zinc-800 pt-4 mt-4">
                                 <div>
-                                    <p className="text-xs text-zinc-500 mb-1">Speed</p>
-                                    <p className="text-sm font-medium text-zinc-900">{telemetry.speed.toFixed(2)} m/s</p>
+                                    <p className="text-xs text-zinc-400 mb-1">Speed</p>
+                                    <p className="text-sm font-medium text-zinc-100">{telemetry.speed.toFixed(2)} m/s</p>
                                 </div>
                                 <div>
-                                    <p className="text-xs text-zinc-500 mb-1">Accel Mag</p>
-                                    <p className="text-sm font-medium text-zinc-900">{telemetry.accelerationMagnitude.toFixed(2)} Gs</p>
+                                    <p className="text-xs text-zinc-400 mb-1">Accel Mag</p>
+                                    <p className="text-sm font-medium text-zinc-100">{telemetry.accelerationMagnitude.toFixed(2)} Gs</p>
                                 </div>
                             </div>
                         )}
                     </div>
 
                     {/* Event Log Stream */}
-                    <div className="bg-white rounded-xl border border-zinc-200 shadow-sm flex-1 flex flex-col overflow-hidden max-h-[400px]">
-                        <div className="p-4 border-b border-zinc-200 bg-zinc-50 flex items-center gap-2">
-                            <AlertCircle className="w-4 h-4 text-zinc-500" />
-                            <h2 className="text-sm font-semibold text-zinc-800">Live Event Log</h2>
+                    <div className="bg-zinc-950 rounded-xl border border-zinc-800 shadow-sm flex-1 flex flex-col overflow-hidden max-h-[400px]">
+                        <div className="p-4 border-b border-zinc-800 bg-zinc-900/50 flex items-center gap-2">
+                            <AlertCircle className="w-4 h-4 text-zinc-400" />
+                            <h2 className="text-sm font-semibold text-zinc-100">Live Event Log</h2>
                         </div>
 
-                        <div className="p-4 flex-1 overflow-y-auto space-y-3 bg-zinc-50/50">
+                        <div className="p-4 flex-1 overflow-y-auto space-y-3 bg-zinc-950">
                             {eventLog.length === 0 ? (
-                                <p className="text-sm text-zinc-400 text-center py-8">Waiting for telemetry events...</p>
+                                <p className="text-sm text-zinc-500 text-center py-8">Waiting for telemetry events...</p>
                             ) : (
                                 eventLog.map((log: { time: string, msg: string, type: string }, i: number) => (
                                     <div key={i} className="flex gap-3 text-sm">
-                                        <span className="text-xs text-zinc-400 font-mono whitespace-nowrap mt-0.5">{log.time}</span>
-                                        <p className={`flex-1 ${log.type === 'error' ? 'text-red-600 font-medium' :
-                                            log.type === 'warning' ? 'text-amber-600' :
-                                                log.type === 'message' ? 'text-blue-600 italic' :
-                                                    'text-zinc-600'
+                                        <span className="text-xs text-zinc-500 font-mono whitespace-nowrap mt-0.5">{log.time}</span>
+                                        <p className={`flex-1 ${log.type === 'error' ? 'text-red-400 font-medium' :
+                                            log.type === 'warning' ? 'text-amber-400' :
+                                                log.type === 'message' ? 'text-blue-400 italic' :
+                                                    'text-zinc-300'
                                             }`}>
                                             {log.msg}
                                         </p>
